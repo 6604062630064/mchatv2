@@ -10,11 +10,13 @@ const app: Express = express();
 const port = process.env.PORT || 3000;
 const authRouter = require("@/routes/authRouter");
 const usersRouter = require("@/routes/usersRouter");
+const roomsRouter = require("@/routes/roomsRouter");
 
 app.use(cors());
 app.use(morgan("combined"));
 app.use("/auth", authRouter);
 app.use("/users", usersRouter);
+app.use("/rooms", roomsRouter);
 
 app.get("/", (req: Request, res: Response) => {
 	res.send("Express + TypeScript Server");
