@@ -11,12 +11,14 @@ const port = process.env.PORT || 3000;
 const authRouter = require("@/routes/authRouter");
 const usersRouter = require("@/routes/usersRouter");
 const roomsRouter = require("@/routes/roomsRouter");
+const profileRouter = require("@/routes/profileRouter");
 
 app.use(cors());
 app.use(morgan("combined"));
 app.use("/auth", authRouter);
 app.use("/users", usersRouter);
 app.use("/rooms", roomsRouter);
+app.use("/profile", profileRouter);
 
 app.get("/", (req: Request, res: Response) => {
 	res.send("Express + TypeScript Server");
