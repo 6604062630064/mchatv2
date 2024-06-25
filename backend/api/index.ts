@@ -6,6 +6,7 @@ dotenv.config();
 
 const morgan = require("morgan");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const app: Express = express();
 const port = process.env.PORT || 3000;
 const authRouter = require("@/routes/authRouter");
@@ -13,8 +14,11 @@ const usersRouter = require("@/routes/usersRouter");
 const roomsRouter = require("@/routes/roomsRouter");
 const profileRouter = require("@/routes/profileRouter");
 
+app.use(express.urlencoded({ extended: true }));
+
 app.use(cors());
 app.use(morgan("combined"));
+app.use(cookieParser());
 app.use("/auth", authRouter);
 app.use("/users", usersRouter);
 app.use("/rooms", roomsRouter);

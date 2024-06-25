@@ -1,9 +1,8 @@
 import { Router, Express, Request, Response } from "express";
+const authControllers = require("@/controllers/authControllers");
 const router = Router();
 
-router.get("/google", (req: Request, res: Response) => {
-	res.send("To be implemented");
-});
+router.post("/google", authControllers.google_POST);
 
 router.get("/loggedin", (req: Request, res: Response) => {
 	res.send("To be implemented");
