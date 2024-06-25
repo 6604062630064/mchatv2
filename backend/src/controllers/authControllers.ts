@@ -61,7 +61,7 @@ exports.google_POST = [
 				expiresIn: "3 days",
 			});
 
-			res
+			return res
 				.status(200)
 				.cookie("web_session", userToken, {
 					httpOnly: true,
@@ -71,7 +71,18 @@ exports.google_POST = [
 				})
 				.redirect(CLIENT_URL as string);
 		} catch (err) {
-			res.sendStatus(401);
+			console.log(err);
+			return res.sendStatus(401);
 		}
 	}),
 ];
+
+exports.logged_in_POST = asyncHandler(async (req: Request, res: Response) => {
+	const isAuthenticated = req.authenticated;
+	const userInfo = req.userInfo;
+	if (isAuthenticated) {
+		return res.status(200).json(userInfo);
+	} else {
+		return res.clearCookie("web_session").sendStatus(401);
+	}
+});

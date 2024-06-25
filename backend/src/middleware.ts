@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const jwt = require("jsonwebtoken");
-const { PRIVATE_KEY, GOOGLE_CLIENT_ID } = process.env;
+const { PRIVATE_KEY } = process.env;
 
 declare module "express-serve-static-core" {
 	interface Request {
@@ -21,14 +21,13 @@ const checkAuthentication = async (
 	next: NextFunction
 ) => {
 	const web_session = req.cookies.web_session;
-	console.log(GOOGLE_CLIENT_ID);
+
 	if (!web_session) {
 		req.authenticated = false;
 		return next();
 	}
 
 	try {
-		console.log(PRIVATE_KEY);
 		const jwtResult = jwt.verify(web_session, PRIVATE_KEY);
 		req.authenticated = true;
 		req.userInfo = jwtResult;
