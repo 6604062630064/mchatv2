@@ -1,5 +1,6 @@
 import "module-alias/register";
 import express, { Express, Request, Response } from "express";
+import checkAuthentication from "@/middleware";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -14,11 +15,16 @@ const usersRouter = require("@/routes/usersRouter");
 const roomsRouter = require("@/routes/roomsRouter");
 const profileRouter = require("@/routes/profileRouter");
 
-app.use(express.urlencoded({ extended: true }));
+const { CLIENT_URL } = process.env;
 
-app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use(
+	cors({ origin: CLIENT_URL, methods: ["GET", "POST"], credentials: true })
+);
 app.use(morgan("combined"));
 app.use(cookieParser());
+
+app.use(checkAuthentication);
 app.use("/auth", authRouter);
 app.use("/users", usersRouter);
 app.use("/rooms", roomsRouter);
