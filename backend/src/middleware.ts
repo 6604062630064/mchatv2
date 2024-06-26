@@ -11,7 +11,7 @@ const { PRIVATE_KEY } = process.env;
 declare module "express-serve-static-core" {
 	interface Request {
 		authenticated: boolean;
-		userInfo?: UserInfoObject;
+		userInfo: UserInfoObject;
 	}
 }
 
@@ -31,10 +31,10 @@ const checkAuthentication = async (
 		const jwtResult = jwt.verify(web_session, PRIVATE_KEY);
 		req.authenticated = true;
 		req.userInfo = jwtResult;
-		return next();
 	} catch (err) {
 		req.authenticated = false;
-		return next();
 	}
+
+	return next();
 };
 export default checkAuthentication;
