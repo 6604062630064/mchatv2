@@ -34,8 +34,7 @@ exports.messages_GET = [
 		const sender = req.userInfo?.id;
 
 		const listResult =
-			await sql<MessageList>`select id, body, created from umessages where sender = ${sender} and recipient = ${recipient} order by created desc`;
-
+			await sql<MessageList>`select id, body, sender, created from umessages where (sender = ${sender} and recipient = ${recipient}) or (sender = ${recipient} and recipient = ${sender}) order by created asc`;
 		return res.json(listResult);
 	}),
 ];

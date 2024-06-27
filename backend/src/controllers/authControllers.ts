@@ -65,7 +65,8 @@ exports.google_POST = [
 				.status(200)
 				.cookie("web_session", userToken, {
 					httpOnly: true,
-					sameSite: "lax",
+					sameSite: "none",
+					domain: "localhost",
 					secure: true,
 					maxAge: 259200000, // 3 days
 				})
