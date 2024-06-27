@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from "express";
-import { cookie, validationResult } from "express-validator";
 import { UserInfoObject } from "@/types/user.type";
 import dotenv from "dotenv";
 
@@ -21,7 +20,6 @@ const checkAuthentication = async (
 	next: NextFunction
 ) => {
 	const web_session = req.cookies.web_session;
-
 	if (!web_session) {
 		req.authenticated = false;
 		return next();
