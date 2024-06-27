@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 
 const roboto = Roboto({
-  weight: "400",
+  weight: ["400", "500", "700"],
   subsets: ["latin"],
 });
 
@@ -20,9 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="">
-      <body className={roboto.className + " overflow-x-hidden"}>
-        {children}
-      </body>
+      <body className={roboto.className + " h-[100vh]"}>{children}</body>
     </html>
   );
 }

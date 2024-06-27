@@ -1,12 +1,11 @@
 "use client";
-import { Montserrat } from "next/font/google";
 
-const montserrat = Montserrat({ weight: "700", subsets: ["latin"] });
+import { logo } from "@/utils/fonts";
 
 export default function LoginPage() {
   return (
     <section className="grid h-[100vh] place-content-center bg-[#FFFBEA] p-14">
-      <div className={`${montserrat.className} text-5xl font-bold`}>
+      <div className={`${logo.className} text-5xl font-bold`}>
         <h1>Welcome to</h1>
         <h1 className="mt-8 text-[#D64545]">mChat</h1>
       </div>
