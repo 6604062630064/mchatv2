@@ -1,11 +1,9 @@
 import { UserInfoObject, UserList } from "@/types/user";
 import { cookies } from "next/headers";
-
 const { SERVER_URL } = process.env;
 
-const web_session = cookies().get("web_session")?.value;
-
 export const getUserInfo: () => Promise<UserInfoObject> = async () => {
+  const web_session = cookies().get("web_session")?.value;
   const response = await fetch(`${SERVER_URL}/auth/loggedin`, {
     method: "POST",
     credentials: "include",
@@ -23,6 +21,7 @@ export const getUserInfo: () => Promise<UserInfoObject> = async () => {
 };
 
 export const getUserList: () => Promise<UserList> = async () => {
+  const web_session = cookies().get("web_session")?.value;
   const response = await fetch(`${SERVER_URL}/users`, {
     method: "GET",
     credentials: "include",
