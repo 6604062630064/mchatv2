@@ -1,6 +1,7 @@
-import { param, validationResult, body } from "express-validator";
+import { param, validationResult } from "express-validator";
 import { Request, Response } from "express";
 import { MessageList } from "@/types/message.type";
+import { OtherUserInfoObject } from "@/types/user.type";
 import sql from "@/db";
 import dotenv from "dotenv";
 
@@ -59,5 +60,30 @@ exports.messages_POST = [
 			recipient: recipient,
 		})}`;
 		return res.sendStatus(202);
+	}),
+];
+
+exports.userInfo_GET = [
+	param("userId").escape().isNumeric().withMessage("Not a number"),
+	asyncHandler(async (req: Request, res: Response) => {
+		const result = validationResult(req);
+
+		if (!req.authenticated || !result.isEmpty()) {
+			return res.sendStatus(401);
+		}
+
+		const userId = req.params.userId;
+
+		if (userId === req.userInfo.id.toString()) {
+			return res.sendStatus(401);
+		}
+
+		const dbResult = await sql<
+			OtherUserInfoObject[]
+		>`select id, username, role, avatar from users where id = ${userId}`;
+
+		if (!dbResult.length) return res.sendStatus(404); //Not found
+
+		return res.json(dbResult[0]);
 	}),
 ];

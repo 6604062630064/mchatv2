@@ -6,3 +6,10 @@ export type UserInfoObject = {
 	iat: number;
 	exp: number;
 };
+
+export type OtherUserInfoObject = {
+	id: number;
+	username: string;
+	role: string;
+	avatar: string;
+};
