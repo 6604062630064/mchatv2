@@ -6,5 +6,3 @@ export type UserInfoObject = {
 	iat: number;
 	exp: number;
 };
-
-export type UserList = { id: number; body: string; created: Date }[];

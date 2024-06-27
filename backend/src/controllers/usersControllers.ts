@@ -1,6 +1,6 @@
 import { param, validationResult, body } from "express-validator";
 import { Request, Response } from "express";
-import { UserList } from "@/types/user.type";
+import { MessageList } from "@/types/message.type";
 import sql from "@/db";
 import dotenv from "dotenv";
 
@@ -33,7 +33,7 @@ exports.messages_GET = [
 		const sender = req.userInfo?.id;
 
 		const listResult =
-			await sql<UserList>`select id, body, created from umessages where sender = ${sender} and recipient = ${recipient} order by created desc`;
+			await sql<MessageList>`select id, body, created from umessages where sender = ${sender} and recipient = ${recipient} order by created desc`;
 
 		return res.json(listResult);
 	}),
@@ -58,7 +58,6 @@ exports.messages_POST = [
 			sender: sender,
 			recipient: recipient,
 		})}`;
-		console.log(dbResult);
 		return res.sendStatus(202);
 	}),
 ];
